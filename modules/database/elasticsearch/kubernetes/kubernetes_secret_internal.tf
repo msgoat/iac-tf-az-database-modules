@@ -4,7 +4,7 @@ resource kubernetes_secret elasticsearch_restore {
   type = "Opaque"
   metadata {
     name = "${var.elasticsearch_cluster_name}-restore"
-    namespace = module.namespace.k8s_namespace_name
+    namespace = var.kubernetes_namespace_name
     labels = {
       "app.kubernetes.io/name" = var.elasticsearch_cluster_name
       "app.kubernetes.io/component" = "secret"
