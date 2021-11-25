@@ -68,6 +68,17 @@ persistence:
   labels:
     enabled: false
 antiAffinity: "hard"
+%{ if var.node_group_workload_class ~}
+# Encourages deployment to the tools pool
+nodeAffinity:
+  requiredDuringSchedulingIgnoredDuringExecution:
+    nodeSelectorTerms:
+      - matchExpressions:
+          - key: "group.msg.cloud.kubernetes/workload"
+            operator: In
+            values:
+              - ${var.node_group_workload_class}
+%{ endif ~}
 podManagementPolicy: "Parallel"
 enableServiceLinks: true
 protocol: http
@@ -112,6 +123,14 @@ imageTag: ${var.elasticsearch_image_tag}
 imagePullPolicy: "Always"
 keystore:
   - secretName: ${kubernetes_secret.elasticsearch_restore[0].metadata[0].name}
+%{ endif ~}
+%{ if var.node_group_workload_class ~}
+# It's OK to be deployed to the tools pool, too
+tolerations:
+  - key: "group.msg.cloud.kubernetes/workload"
+    operator: "Equal"
+    value: ${var.node_group_workload_class}
+    effect: "NoSchedule"
 %{ endif ~}
 EOT
 }

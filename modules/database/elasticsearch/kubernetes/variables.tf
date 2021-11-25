@@ -158,3 +158,9 @@ variable elasticsearch_image_tag {
   type = string
   default = ""
 }
+
+variable node_group_workload_class {
+  description = "Class of the AKS node group Elasticsearch should be hosted on"
+  type = string
+  default = ""
+}
