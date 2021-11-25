@@ -68,7 +68,7 @@ persistence:
   labels:
     enabled: false
 antiAffinity: "hard"
-%{ if var.node_group_workload_class ~}
+%{ if var.node_group_workload_class != "" ~}
 # Encourages deployment to the tools pool
 nodeAffinity:
   requiredDuringSchedulingIgnoredDuringExecution:
@@ -124,7 +124,7 @@ imagePullPolicy: "Always"
 keystore:
   - secretName: ${kubernetes_secret.elasticsearch_restore[0].metadata[0].name}
 %{ endif ~}
-%{ if var.node_group_workload_class ~}
+%{ if var.node_group_workload_class != "" ~}
 # It's OK to be deployed to the tools pool, too
 tolerations:
   - key: "group.msg.cloud.kubernetes/workload"
@@ -137,7 +137,7 @@ EOT
 
 resource helm_release elasticsearch {
   chart = "elasticsearch"
-  version = "7.13.2"
+  version = "7.15.0"
   repository = "https://helm.elastic.co"
   name = var.helm_release_name
   dependency_update = true
