@@ -67,7 +67,7 @@ persistence:
   enabled: true
   labels:
     enabled: false
-antiAffinity: "hard"
+antiAffinity: ${var.topology_spread_strategy}
 %{ if var.node_group_workload_class != "" ~}
 # Encourages deployment to the tools pool
 nodeAffinity:
