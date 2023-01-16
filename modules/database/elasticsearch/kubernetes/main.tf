@@ -7,7 +7,7 @@ terraform {
       version = "~> 2.0"
     }
     kubernetes = {
-      version = "~> 2.0s"
+      version = "~> 2.0"
     }
   }
 }
