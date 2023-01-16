@@ -166,7 +166,7 @@ variable node_group_workload_class {
 }
 
 variable topology_spread_strategy {
-  description = "Strategy to use regarding distribution of cluster nodes across node / availability zones; possible values are: soft and hard"
+  description = "Strategy to use regarding distribution of cluster nodes across node / availability zones; possible values are: none, soft and hard"
   type = string
   default = "hard"
 }

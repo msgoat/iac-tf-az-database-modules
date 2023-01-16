@@ -4,7 +4,7 @@ locals {
   key_vault_resource_group_name = local.key_vault_id_parts[4]
 }
 
-# retrieve Key Vault supposed to hold the PostgreSQL secret
+# retrieve Key Vault supposed to hold the Redis secret
 data azurerm_key_vault shared {
   name = local.key_vault_name
   resource_group_name = local.key_vault_resource_group_name
