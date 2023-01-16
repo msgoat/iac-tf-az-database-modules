@@ -96,14 +96,10 @@ variable elasticsearch_node_storage_size {
   default = 30
 }
 
-variable elasticsearch_node_storage_sku {
-  description = "Storage SKU allocated by each ElasticSearch cluster node; supported values are: Standard, Premium"
+variable elasticsearch_node_storage_class {
+  description = "Storage class allocated by each ElasticSearch cluster node"
   type = string
-  default = "Standard"
-  validation {
-    condition = var.elasticsearch_node_storage_sku == "Standard" || var.elasticsearch_node_storage_sku == "Premium"
-    error_message = "Expected Standard or Premium storage SKU for each Elasticsearch node."
-  }
+  default = "managed-csi-premium"
 }
 
 variable key_vault_id {

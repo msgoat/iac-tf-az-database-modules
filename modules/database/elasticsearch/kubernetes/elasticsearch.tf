@@ -4,7 +4,6 @@ locals {
   node_ram_request = "${var.elasticsearch_node_ram}Gi"
   node_ram_limit = "${var.elasticsearch_node_ram}Gi"
   node_storage_size = "${var.elasticsearch_node_storage_size}Gi"
-  node_storage_sku = var.elasticsearch_node_storage_sku == "Standard" ? "default-encrypted" : "managed-premium-encrypted"
   # render helm chart values since direct passing of values does not work in all cases
   rendered_values = <<EOT
 clusterName: "${var.elasticsearch_cluster_name}"
@@ -56,7 +55,7 @@ resources:
     cpu: "${local.node_cpu_limit}"
     memory: "${local.node_ram_limit}"
 volumeClaimTemplate:
-  storageClassName: "${local.node_storage_sku}"
+  storageClassName: "${var.elasticsearch_node_storage_class}"
   accessModes: [ "ReadWriteOnce" ]
   resources:
     requests:
