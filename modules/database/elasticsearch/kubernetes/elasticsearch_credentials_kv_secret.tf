@@ -7,8 +7,8 @@ resource azurerm_key_vault_secret elasticsearch {
   key_vault_id = data.azurerm_key_vault.shared.id
   name = local.key_vault_secret_name
   value = jsonencode({
-    elasticsearch-user = local.es_default_user
-    elasticsearch-password = random_password.password.result
+    username = local.es_default_user
+    password = random_password.password.result
   })
   content_type = "application/json"
   tags = merge({ Name = local.key_vault_secret_name, RefersTo = "es-${var.region_code}-${var.solution_fqn}-${var.elasticsearch_cluster_name}"}, local.module_common_tags)
