@@ -27,7 +27,7 @@ esConfig: {}
 #  elasticsearch.yml: |
 #    xpack.security.enabled: ${var.elasticsearch_security_enabled}
 
-createCert: true
+createCert: ${var.elasticsearch_security_enabled}
 
 esJvmOptions: {}
 #  processors.options: |
@@ -62,8 +62,7 @@ envFrom: []
 
 # Disable it to use your own elastic-credential Secret.
 secret:
-  enabled: true
-  password: "" # generated randomly if not defined
+  enabled: false
 
 # A list of secrets and their paths to mount inside the pod
 # This is useful for mounting certificates for security and for mounting

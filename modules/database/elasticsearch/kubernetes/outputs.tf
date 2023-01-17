@@ -7,3 +7,8 @@ output elasticsearch_service_port {
   description = "Port of the Kubernetes service referring to this elasticsearch cluster"
   value = "9200"
 }
+
+output elasticsearch_service_url {
+  description = "URL of the Kubernetes service referring to this elasticsearch cluster"
+  value = "${var.elasticsearch_cluster_name}-master.${var.kubernetes_namespace_name}"
+}

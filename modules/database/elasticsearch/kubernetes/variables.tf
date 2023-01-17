@@ -131,30 +131,6 @@ variable elasticsearch_security_enabled {
   default = false
 }
 
-variable elasticsearch_backup_restore_enabled {
-  description = "Controls if snapshot should be restored from Azure Storage container"
-  type = bool
-  default = false
-}
-
-variable elasticsearch_snapshot_id {
-  description = "Unique identifier of a blob storage account providing elasticsearch snapshots/backups"
-  type = string
-  default = ""
-}
-
-variable elasticsearch_image_name {
-  description = "Custom docker image name of Elasticsearch image with Azure Repository Plugin"
-  type = string
-  default = ""
-}
-
-variable elasticsearch_image_tag {
-  description = "Custom docker image tag of Elasticsearch image with Azure Repository Plugin"
-  type = string
-  default = ""
-}
-
 variable node_group_workload_class {
   description = "Class of the AKS node group Elasticsearch should be hosted on"
   type = string
@@ -164,5 +140,5 @@ variable node_group_workload_class {
 variable topology_spread_strategy {
   description = "Strategy to use regarding distribution of cluster nodes across node / availability zones; possible values are: none, soft and hard"
   type = string
-  default = "hard"
+  default = "soft"
 }
