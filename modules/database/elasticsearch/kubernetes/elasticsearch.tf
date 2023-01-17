@@ -31,7 +31,7 @@ esConfig: {}
 #  elasticsearch.yml: |
 #    xpack.security.enabled: ${var.elasticsearch_security_enabled}
 
-createCert: ${var.elasticsearch_security_enabled}
+createCert: ${var.elasticsearch_tls_enabled}
 
 esJvmOptions: {}
 #  processors.options: |
@@ -194,8 +194,8 @@ podManagementPolicy: "Parallel"
 # If you experience slow pod startups you probably want to set this to `false`.
 enableServiceLinks: true
 
-protocol: https
-httpPort: 9200
+protocol: ${local.es_protocol}
+httpPort: ${local.es_port}
 transportPort: 9300
 
 service:
