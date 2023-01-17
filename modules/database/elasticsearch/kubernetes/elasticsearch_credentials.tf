@@ -1,7 +1,5 @@
-# create a random username for the Elasticsearch user
-resource random_string user {
-  length = 16
-  special = false
+locals {
+  es_default_user = "elastic"
 }
 
 # create a random password for the Elasticsearch user

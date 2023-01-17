@@ -13,7 +13,7 @@ resource kubernetes_secret elasticsearch {
   }
   # we are explicitly using binary_data with base64encode() to prevent sensitive data from showing up in terraform state
   binary_data = {
-    elasticsearch-user = base64encode(random_string.user.result)
+    elasticsearch-user = base64encode(local.es_default_user)
     elasticsearch-password = base64encode(random_password.password.result)
   }
 }

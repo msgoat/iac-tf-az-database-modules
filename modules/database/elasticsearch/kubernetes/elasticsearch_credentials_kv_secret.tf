@@ -7,7 +7,7 @@ resource azurerm_key_vault_secret elasticsearch {
   key_vault_id = data.azurerm_key_vault.shared.id
   name = local.key_vault_secret_name
   value = jsonencode({
-    elasticsearch-user = random_string.user.result
+    elasticsearch-user = local.es_default_user
     elasticsearch-password = random_password.password.result
   })
   content_type = "application/json"
