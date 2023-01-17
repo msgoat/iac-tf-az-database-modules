@@ -3,7 +3,7 @@ resource kubernetes_secret elasticsearch {
   type = "Opaque"
   metadata {
     name = var.elasticsearch_cluster_name
-    namespace = varlocal.target_namespace_names[count.index]
+    namespace = var.kubernetes_namespace_name
     labels = {
       "app.kubernetes.io/name" = var.elasticsearch_cluster_name
       "app.kubernetes.io/component" = "secret"
