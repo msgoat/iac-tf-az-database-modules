@@ -4,12 +4,11 @@ locals {
 
 # create a Key Vault secret with username and password of PostgreSQL admin user
 resource azurerm_key_vault_secret elasticsearch {
-  count = var.elasticsearch_security_enabled ? 1 : 0
   key_vault_id = data.azurerm_key_vault.shared.id
   name = local.key_vault_secret_name
   value = jsonencode({
-    elasticsearch-user = random_string.user[0].result
-    elasticsearch-password = random_password.password[0].result
+    elasticsearch-user = random_string.user.result
+    elasticsearch-password = random_password.password.result
   })
   content_type = "application/json"
   tags = merge({ Name = local.key_vault_secret_name, RefersTo = "es-${var.region_code}-${var.solution_fqn}-${var.elasticsearch_cluster_name}"}, local.module_common_tags)

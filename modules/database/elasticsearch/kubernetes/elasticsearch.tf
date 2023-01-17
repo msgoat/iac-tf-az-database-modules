@@ -39,7 +39,6 @@ esJvmOptions: {}
 extraEnvs:
   - name: bootstrap.memory_lock
     value: "false"
-%{ if var.elasticsearch_security_enabled ~}
   # provide Elasticsearch username and password via Kubernetes secret
   - name: ELASTIC_PASSWORD
     valueFrom:
@@ -51,7 +50,6 @@ extraEnvs:
       secretKeyRef:
         name: ${kubernetes_secret.elasticsearch.0.metadata.0.name}
         key: elasticsearch-user
-%{ endif ~}
 
 # Allows you to load environment variables from kubernetes secret or config map
 envFrom: []

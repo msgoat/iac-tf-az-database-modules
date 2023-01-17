@@ -4,7 +4,7 @@ locals {
 
 # create a Kubernetes secret with the username and the password of the Elasticsearch user in each given namespace
 resource kubernetes_secret elasticsearch {
-  count = var.elasticsearch_security_enabled ? length(local.target_namespace_names) : 0
+  count = length(local.target_namespace_names)
   type = "Opaque"
   metadata {
     name = var.elasticsearch_cluster_name
@@ -18,7 +18,7 @@ resource kubernetes_secret elasticsearch {
   }
   # we are explicitly using binary_data with base64encode() to prevent sensitive data from showing up in terraform state
   binary_data = {
-    elasticsearch-user = base64encode(random_string.user[0].result)
-    elasticsearch-password = base64encode(random_password.password[0].result)
+    elasticsearch-user = base64encode(random_string.user.result)
+    elasticsearch-password = base64encode(random_password.password.result)
   }
 }
