@@ -350,5 +350,4 @@ resource helm_release elasticsearch {
   namespace = var.kubernetes_namespace_name
   create_namespace = true
   values = [ local.rendered_values ]
-  depends_on = [ kubernetes_secret.elasticsearch, kubernetes_secret.elasticsearch_restore[0] ]
 }
