@@ -43,12 +43,12 @@ extraEnvs:
   - name: ELASTIC_PASSWORD
     valueFrom:
       secretKeyRef:
-        name: ${kubernetes_secret.elasticsearch.0.metadata.0.name}
+        name: ${kubernetes_secret.elasticsearch.metadata.0.name}
         key: elasticsearch-password
   - name: ELASTIC_USERNAME
     valueFrom:
       secretKeyRef:
-        name: ${kubernetes_secret.elasticsearch.0.metadata.0.name}
+        name: ${kubernetes_secret.elasticsearch.metadata.0.name}
         key: elasticsearch-user
 
 # Allows you to load environment variables from kubernetes secret or config map
