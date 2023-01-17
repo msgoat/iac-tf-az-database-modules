@@ -22,3 +22,8 @@ output elasticsearch_credentials_k8s_secret_name {
   description = "Name of the Kubernetes secret holding username and password to access this elasticsearch cluster"
   value = kubernetes_secret.elasticsearch.metadata[0].name
 }
+
+output elasticsearch_certificates_k8s_secret_name {
+  description = "Name of the Kubernetes secret holding the TLS certificates to access this elasticsearch cluster"
+  value = "${var.elasticsearch_cluster_name}-master-certs"
+}

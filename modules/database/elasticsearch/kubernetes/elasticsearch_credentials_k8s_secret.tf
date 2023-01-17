@@ -2,7 +2,7 @@
 resource kubernetes_secret elasticsearch {
   type = "Opaque"
   metadata {
-    name = var.elasticsearch_cluster_name
+    name = "${var.elasticsearch_cluster_name}-master-credentials"
     namespace = var.kubernetes_namespace_name
     labels = {
       "app.kubernetes.io/name" = var.elasticsearch_cluster_name
