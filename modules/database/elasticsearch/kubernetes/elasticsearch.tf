@@ -4,6 +4,10 @@ locals {
   node_ram_request = "${var.elasticsearch_node_ram}Gi"
   node_ram_limit = "${var.elasticsearch_node_ram}Gi"
   node_storage_size = "${var.elasticsearch_node_storage_size}Gi"
+  es_protocol = var.elasticsearch_tls_enabled ? "https" : "http"
+  es_hostname = "${var.elasticsearch_cluster_name}-master.${var.kubernetes_namespace_name}"
+  es_port = 9200
+  es_url = "${local.es_protocol}://${local.es_hostname}:${local.es_port}"
   # render helm chart values since direct passing of values does not work in all cases
   rendered_values = <<EOT
 clusterName: "${var.elasticsearch_cluster_name}"

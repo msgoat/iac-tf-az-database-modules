@@ -125,6 +125,12 @@ variable elasticsearch_security_enabled {
   default = false
 }
 
+variable elasticsearch_tls_enabled {
+  description = "Controls if TLS is enabled; currently only self-signed certificates are supported"
+  type = bool
+  default = true
+}
+
 variable node_group_workload_class {
   description = "Class of the AKS node group Elasticsearch should be hosted on"
   type = string
