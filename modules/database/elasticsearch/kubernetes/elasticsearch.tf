@@ -20,15 +20,12 @@ roles:
   - master
   - data
 replicas: ${var.elasticsearch_cluster_size}
-minimumMasterNodes: 2
-
-esMajorVersion: ""
 
 # Allows you to add any config files in /usr/share/elasticsearch/config/
 # such as elasticsearch.yml and log4j2.properties
-esConfig:
-  elasticsearch.yml: |
-    xpack.security.enabled: ${var.elasticsearch_security_enabled}
+esConfig: {}
+#  elasticsearch.yml: |
+#    xpack.security.enabled: ${var.elasticsearch_security_enabled}
 
 createCert: true
 
@@ -76,16 +73,6 @@ secretMounts: []
 #    secretName: elastic-certificates
 #    path: /usr/share/elasticsearch/config/certs
 #    defaultMode: 0755
-
-hostAliases: []
-#- ip: "127.0.0.1"
-#  hostnames:
-#  - "foo.local"
-#  - "bar.local"
-
-image: "docker.elastic.co/elasticsearch/elasticsearch"
-imageTag: "8.5.1"
-imagePullPolicy: "IfNotPresent"
 
 podAnnotations: {}
 # iam.amazonaws.com/role: es-cluster
@@ -186,16 +173,15 @@ antiAffinity: ${var.topology_spread_strategy}
 # This is the node affinity settings as defined in
 # https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature
 %{ if var.node_group_workload_class != "" ~}
-affinity:
-  # Encourages deployment to the tools pool
-  nodeAffinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
-      nodeSelectorTerms:
-        - matchExpressions:
-            - key: "group.msg.cloud.kubernetes/workload"
-              operator: In
-              values:
-                - ${var.node_group_workload_class}
+# Encourages deployment to the tools pool
+nodeAffinity:
+  requiredDuringSchedulingIgnoredDuringExecution:
+    nodeSelectorTerms:
+      - matchExpressions:
+          - key: "group.msg.cloud.kubernetes/workload"
+            operator: In
+            values:
+              - ${var.node_group_workload_class}
 %{ endif ~}
 
 # The default is to deploy all pods serially. By setting this to parallel all pods are started at
@@ -207,7 +193,7 @@ podManagementPolicy: "Parallel"
 # If you experience slow pod startups you probably want to set this to `false`.
 enableServiceLinks: true
 
-protocol: http
+protocol: https
 httpPort: 9200
 transportPort: 9300
 
@@ -260,11 +246,6 @@ readinessProbe:
 
 # https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-health.html#request-params wait_for_status
 clusterHealthCheckParams: "wait_for_status=green&timeout=1s"
-
-## Use an alternate scheduler.
-## ref: https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/
-##
-schedulerName: ""
 
 imagePullSecrets: []
 nodeSelector: {}
