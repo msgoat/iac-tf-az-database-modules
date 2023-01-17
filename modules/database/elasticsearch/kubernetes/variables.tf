@@ -107,12 +107,6 @@ variable key_vault_id {
   type = string
 }
 
-variable secret_namespace_names {
-  description = "Names of the Kubernetes namespaces supposed to get an secret with Elasticsearch username and password"
-  type = list(string)
-  default = []
-}
-
 variable public_access_enabled {
   description = "Controls if public network access is allowed for this server"
   type = bool
